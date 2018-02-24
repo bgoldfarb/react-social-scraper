@@ -5,8 +5,8 @@
     height:auto;
     z-index: 0;
     text-align:center;/* Add This*/
-    font-family: 'Open Sans', sans-serif;
-}
+    font-family: 'Nunito', sans-serif;
+  }
 
 
 .main-title{
@@ -15,7 +15,7 @@
 }
 
 .twitter-results{
-  font-family: 'Mukta Mahee', sans-serif;
+  font-family: 'Nunito', sans-serif;
   margin-bottom: 10px;
 }
 
