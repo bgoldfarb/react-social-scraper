@@ -7,3 +7,64 @@
     text-align:center;/* Add This*/
     font-family: 'Open Sans', sans-serif;
 }
+
+
+.main-title{
+  font-size: 150%;
+  color:#00aced;
+}
+
+.twitter-results{
+  font-family: 'Mukta Mahee', sans-serif;
+  margin-bottom: 10px;
+}
+
+.twitter-name{
+  color:#4F84C4;
+}
+
+.results{
+  display: inline;
+}
+
+.favorites{
+  color:red;
+}
+
+.twitter-results-rt{
+  color:green;
+}
+
+.submit-button {
+  display: inline-block;
+  padding: 10px 15px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: #4CAF50;
+  border: none;
+  border-radius: 15px;
+}
+
+.clear-button{
+  display: inline-block;
+  padding: 10px 15px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: red;
+  border: none;
+  border-radius: 15px;
+}
+
+.submit-button .clear-button:hover {background-color: #3e8e41}
+
+.submit-button .clear-button :active {
+  background-color: #3e8e41;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}

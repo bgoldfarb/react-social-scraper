@@ -1,0 +1,55 @@
+import './App.css';
+import React, { Component } from 'react';
+
+
+let client = ""
+let twitterObject = []
+let sortedObject = []
+class TwitterScraper extends Component {
+
+    constructor(props){
+      super(props)
+        this.state = {
+           
+        }
+      } 
+
+twitterSetup = () => {
+        let Twitter = require('twitter')
+         client = new Twitter({
+                consumer_key: 'Mrgvd7Kk9QmDjDDVbuTP4SJC0',
+                consumer_secret: 'UX7hgJI55K3Ra5zP0YRrKhcvmUwoDwtqakKv7fUPNCDcAuuKl3',
+                access_token_key: '414490265-ghcZ1upaCvWpcRfSyELMjHjnvccPSCklGnAH1X3m',
+                access_token_secret: 'kDkfabBybKW7gCVZLGsCIBXmt6Mfz6deeOZNOKMoCjdPJ'
+            })
+}
+
+twitterSearch = (query, showTweets, queryData) => {
+ 
+    if(showTweets && query.length > 0){
+    this.twitterSetup()
+        client.get('search/tweets', {q: query, count: 50,  lang: 'en', tweet_mode: 'extended',  result_type: this.props.popularOrLatest === 'popular' ? 'popular' : ""} ,(error, tweets, response) => {
+            if(!error && tweets.statuses.length > 0){
+                 tweets.statuses.map((i, index) => {
+                    twitterObject.push(i)
+                    sortedObject = (twitterObject.sort((a,b) =>  (a.favorite_count > b.favorite_count) ? 1 : ((b.favorite_count > a.favorite_count) ? -1 : 0) ))
+                    return(this.props.queryData(sortedObject.full_text, sortedObject[index].user.name, tweets.statuses.length, sortedObject.favorite_count))
+                })     
+            }
+        })
+    }
+}
+ 
+
+ render() {
+    return (
+        <div>
+         {this.twitterSearch(this.props.tweet, this.props.showTweets, this.props.queryData)}
+        </div>
+    );  
+  }
+
+
+}
+
+export default TwitterScraper
