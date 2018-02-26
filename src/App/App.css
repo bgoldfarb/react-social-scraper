@@ -8,7 +8,6 @@
     font-family: 'Nunito', sans-serif;
   }
 
-
 .main-title{
   font-size: 150%;
   color:#00aced;
@@ -61,10 +60,31 @@
   border-radius: 15px;
 }
 
+.followers-button{
+  display: inline-block;
+  padding: 10px 15px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: #4F84C4;
+  border: none;
+  border-radius: 15px;
+}
+
 .submit-button .clear-button:hover {background-color: #3e8e41}
 
 .submit-button .clear-button :active {
   background-color: #3e8e41;
   box-shadow: 0 5px #666;
   transform: translateY(4px);
+}
+
+.user-input{
+  margin-bottom: 15px;
+}
+
+.buttons{
+  margin-bottom: 15px;
 }

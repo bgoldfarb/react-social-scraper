@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import './App.css';
-import TwitterScraper from '../src/TwitterScraper'
-import PopularLatestToggle from '../src/PopularLatestToggle'
+import '../App/App.css'
+import TwitterScraper from '../../src/TwitterScraper/TwitterScraper'
+import PopularLatestToggle from '../../src/PopularLatestToggle/PopularLatestToggle'
 
 class App extends Component {
 
@@ -17,6 +17,7 @@ class App extends Component {
        nameToShow: '',
        favoriteCount: [],
        popularOrLatest: 'popular',
+       sortByFavorites: false,
        followers: []
       }
     }
@@ -74,6 +75,9 @@ class App extends Component {
       this.setState({ popularOrLatest })
     }
 
+    sortByFavorites = () => {
+      this.setState({sortByFavorites : (!this.state.sortByFavorites ? true : false)})
+    }
  
 
   render() {
@@ -84,11 +88,14 @@ class App extends Component {
         <h1>Twitter-Scraper</h1>
       </div>
       <p> Please Enter your query param </p>
-        Search For: <input id="user-input-value" value = {this.state.queryParam} onChange = {this.handleChange}/>
+      <div className = "user-input">Search For: <input id="user-input-value" value = {this.state.queryParam} onChange = {this.handleChange}/></div>
+      <div className = "buttons">
       <button className = 'submit-button' onClick ={this.handleSubmit}>Submit</button>
       <button className = 'clear-button' onClick ={this.handleClear}>Clear</button>
+      <button className = 'followers-button' onClick ={this.sortByFavorites}>Sort By Followers</button>
+      </div>
       <PopularLatestToggle onChange={this.updatePopularOrLatest} popularOrLatest={this.state.popularOrLatest} />
-      <TwitterScraper tweet={this.state.queryParam} showTweets={this.state.showTweets} queryData={this.addToQueryData} popularOrLatest={this.state.popularOrLatest}/>
+      <TwitterScraper tweet={this.state.queryParam} showTweets={this.state.showTweets} sortByFavorites = {this.state.sortByFavorites} queryData={this.addToQueryData} popularOrLatest={this.state.popularOrLatest} />
          {this.showResults()}
     </div>
     );  
