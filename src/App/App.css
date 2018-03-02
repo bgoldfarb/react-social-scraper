@@ -45,6 +45,22 @@
   background-color: #4CAF50;
   border: none;
   border-radius: 15px;
+  margin-right: 10px;
+}
+
+.submit-button-case{
+  display: inline-block;
+  padding: 10px 15px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: rgb(77, 100, 77);
+  border: none;
+  border-radius: 15px;
+  margin-right: 10px;
+
 }
 
 .clear-button{
@@ -58,6 +74,8 @@
   background-color: red;
   border: none;
   border-radius: 15px;
+  margin-right: 10px;
+
 }
 
 .followers-button{
@@ -83,8 +101,10 @@
 
 .user-input{
   margin-bottom: 15px;
+
 }
 
 .buttons{
   margin-bottom: 15px;
 }
+
