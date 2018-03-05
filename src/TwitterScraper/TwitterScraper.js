@@ -54,7 +54,7 @@ twitterSearch = (query, showTweets, queryData) => {
     if(this.userEntersValidQuery(showTweets,query)){
         this.twitterSetup()
         client.get('search/tweets', {q: query, count: 100,  lang: 'en', tweet_mode: 'extended',  result_type: this.props.popularOrLatest === 'popular' ? 'popular' : ""} ,(error, tweets, response) => {
-            if(this.tweetsExistFromQuery(error, tweets)){
+            (this.tweetsExistFromQuery(error, tweets))
                 tweets.statuses.map((i, index) => {
                 twitterObject.push(i)
                 sortedObject = this.sortByfavoritesOrFollowers(twitterObject)
@@ -62,7 +62,7 @@ twitterSearch = (query, showTweets, queryData) => {
             newSortedObjectByCase = this.returnCaseSensitiveTweets(sortedObject, query)
             newSortedObjectFilterOutBrands = this.filterGapTweets(sortedObject, query)
             this.sendTwitterData(this.props.caseSensitive ? newSortedObjectByCase: newSortedObjectFilterOutBrands, queryData, tweets)
-            }
+            
         })
 
     }
