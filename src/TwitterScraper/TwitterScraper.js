@@ -34,7 +34,6 @@ const returnCaseSensitiveTweets = (sortedObject, query) => {
     let regex = new RegExp(query);
     return sortedCaseSensitiveObject.filter((i) => (i.full_text.search(regex) >= 0 && returnFilteredOutBrands(i)))
 }
-
 const returnFilteredOutBrands = (i) => !gapBrands.includes(i.user.screen_name) && !i.user.screen_name.includes('Athleta')
 
 const filterGapTweets = (sortedObject, query) => {
