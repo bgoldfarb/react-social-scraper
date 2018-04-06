@@ -24,20 +24,20 @@ class App extends Component {
     handleChange = (event) => {
       this.setState(
         {queryParam: event.target.value})
-      twitterSearch(this.state.queryParam, this.state.queryData)
     }
 
     handleSubmit = (e) => {
        this.setState({queryParam: this.state.queryParam})
        this.setState({caseSensitive: false})
        twitterSearch(this.state.queryParam, this.state.queryData)
-
+       this.showResults()
     }
 
     handleCaseSensitiveSubmit = (e) => {
       this.setState({queryParam: this.state.queryParam})
       this.setState({caseSensitive: true})
       twitterSearch(this.state.queryParam, this.state.queryData)
+      this.showResults()
    }
 
     handleClear = (e) => {
@@ -101,8 +101,6 @@ class App extends Component {
         <button className = 'clear-button' onClick ={this.handleClear}>Clear</button>
         <button className = 'followers-button' onClick ={this.sortByFavorites}>Sort By Followers</button>
       </div>
-      <PopularLatestToggle onChange={this.updatePopularOrLatest} popularOrLatest={this.state.popularOrLatest} />
-         {this.showResults()}
     </div>
     );  
   }

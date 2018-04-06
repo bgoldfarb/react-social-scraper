@@ -25,33 +25,33 @@ const sortByFavoritesDescending = (a,b) => -1*((a.favorite_count > b.favorite_co
 
 const soryByFollowersDesending = (a,b) => -1*((a.user.followers_count > b.user.followers_count) ? 1 : ((b.user.followers_count > a.user.followers_count) ? -1 : 0))
 
-const sortByfavoritesOrFollowers = (twitterObject) => !this.props.sortByFavorites ? (twitterObject.sort((a,b) => this.sortByFavoritesDescending(a,b))) : (twitterObject.sort((a,b) =>  this.soryByFollowersDesending(a,b)))
+const sortByfavoritesOrFollowers = (twitterObject, props) => !props.sortByFavorites ? (twitterObject.sort((a,b) => sortByFavoritesDescending(a,b))) : (twitterObject.sort((a,b) =>  soryByFollowersDesending(a,b)))
 
 const sendTwitterData = (sortedObject, queryData, tweets) => sortedObject.map((i) => queryData(i.full_text,i.user.name,tweets.statuses.length, i.favorite_count, i.user.followers_count))
 
 const returnCaseSensitiveTweets = (sortedObject, query) => {
     sortedCaseSensitiveObject = sortedObject
     let regex = new RegExp(query);
-    return sortedCaseSensitiveObject.filter((i) => (i.full_text.search(regex) >= 0 && this.returnFilteredOutBrands(i)))
+    return sortedCaseSensitiveObject.filter((i) => (i.full_text.search(regex) >= 0 && returnFilteredOutBrands(i)))
 }
 
 const returnFilteredOutBrands = (i) => !gapBrands.includes(i.user.screen_name) && !i.user.screen_name.includes('Athleta')
 
 const filterGapTweets = (sortedObject, query) => {
     filteredOutGapObject = sortedObject
-    return filteredOutGapObject.filter((i) => this.returnFilteredOutBrands(i))
+    return filteredOutGapObject.filter((i) => returnFilteredOutBrands(i))
 }
 
-export const twitterSearch = (query, queryData) => {
-        this.twitterSetup()
-        client.get('search/tweets', {q: query, count: 100,  lang: 'en', tweet_mode: 'extended',  result_type: this.props.popularOrLatest === 'popular' ? 'popular' : ""} ,(error, tweets, response) => {
+export const twitterSearch = (query, queryData, props) => {
+       twitterSetup()
+        client.get('search/tweets', {q: query, count: 100,  lang: 'en', tweet_mode: 'extended',  result_type: 'popular' ? 'popular' : ""} ,(error, tweets, response) => {
                 tweets.statuses.map((i, index) => {
                 twitterObject.push(i)
-                sortedObject = this.sortByfavoritesOrFollowers(twitterObject)
+                sortedObject = sortByfavoritesOrFollowers(twitterObject, props)
                 })
-            newSortedObjectByCase = this.returnCaseSensitiveTweets(sortedObject, query)
-            newSortedObjectFilterOutBrands = this.filterGapTweets(sortedObject, query)
-            this.sendTwitterData(this.props.caseSensitive ? newSortedObjectByCase: newSortedObjectFilterOutBrands, queryData, tweets)
+            newSortedObjectByCase = returnCaseSensitiveTweets(sortedObject, query)
+            newSortedObjectFilterOutBrands = filterGapTweets(sortedObject, query)
+            sendTwitterData(newSortedObjectFilterOutBrands, queryData, tweets)
             
         })
         sortedObject = [] 
