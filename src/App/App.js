@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import '../App/App.css'
-import {twitterSearch} from '../../src/TwitterScraper/TwitterScraper'
+import TwitterScraper from '../../src/TwitterScraper/TwitterScraper'
 import PopularLatestToggle from '../../src/PopularLatestToggle/PopularLatestToggle'
 
 class App extends Component {
@@ -10,6 +10,7 @@ class App extends Component {
       this.state = {
        queryParam: '',
        tweet: '',
+       showTweets: false,
        queryData: [],
        name: [],
        count : 0,
@@ -23,26 +24,50 @@ class App extends Component {
     }
     handleChange = (event) => {
       this.setState(
+<<<<<<< HEAD
         {queryParam: event.target.value})
+=======
+        {queryParam: event.target.value,
+        showTweets: false})
+>>>>>>> 0ec5a6a2d5b4346a93b4bb28f7b4d7f745d16816
     }
 
     handleSubmit = (e) => {
        this.setState({queryParam: this.state.queryParam})
+       if(!this.state.showTweets){
+         this.setState({showTweets:true})
+       }
+       else{
+        this.setState({showTweets:false})
+       }
        this.setState({caseSensitive: false})
+<<<<<<< HEAD
        twitterSearch(this.state.queryParam, this.state.queryData)
        this.showResults()
+=======
+>>>>>>> 0ec5a6a2d5b4346a93b4bb28f7b4d7f745d16816
     }
 
     handleCaseSensitiveSubmit = (e) => {
       this.setState({queryParam: this.state.queryParam})
+      if(!this.state.showTweets){
+        this.setState({showTweets:true})
+      }
+      else{
+       this.setState({showTweets:false})
+      }
       this.setState({caseSensitive: true})
+<<<<<<< HEAD
       twitterSearch(this.state.queryParam, this.state.queryData)
       this.showResults()
+=======
+>>>>>>> 0ec5a6a2d5b4346a93b4bb28f7b4d7f745d16816
    }
 
     handleClear = (e) => {
       this.setState({    
         tweet: '',
+        showTweets: false,
         queryData: [],
         name: [],
         count : 0,
@@ -58,6 +83,7 @@ class App extends Component {
         queryData: this.state.queryData.concat(data),
         name: this.state.name.concat(name), 
         count: length,
+        showTweets: false,
         favoriteCount: this.state.favoriteCount.concat(favoriteCount),
         followers: this.state.followers.concat(followers)
       })
@@ -101,6 +127,12 @@ class App extends Component {
         <button className = 'clear-button' onClick ={this.handleClear}>Clear</button>
         <button className = 'followers-button' onClick ={this.sortByFavorites}>Sort By Followers</button>
       </div>
+<<<<<<< HEAD
+=======
+      <PopularLatestToggle onChange={this.updatePopularOrLatest} popularOrLatest={this.state.popularOrLatest} />
+      <TwitterScraper tweet={this.state.queryParam} showTweets={this.state.showTweets} sortByFavorites = {this.state.sortByFavorites} queryData={this.addToQueryData} popularOrLatest={this.state.popularOrLatest} caseSensitive = {this.state.caseSensitive} />
+         {this.showResults()}
+>>>>>>> 0ec5a6a2d5b4346a93b4bb28f7b4d7f745d16816
     </div>
     );  
   }
