@@ -9,11 +9,8 @@ let client = new Twitter({
     access_token_secret: keys.access_token_secret
 })
 
-// let gapQuery = '@Gap OR @OldNavy OR @Athleta OR @BananaRepublic'
-// let myQuery = "Goldfarb"
-
-var appRouter = function (app) {
-    app.get("/", function(req, res) {
+let appRouter = (app) => {
+    app.get("/", (req, res) => {
     let filteredObject = []
     client.get('search/tweets', {q: req.query.id, count: 300,  lang: 'en', tweet_mode: 'extended'} ,(error, tweets, response) => {
             res.set({
