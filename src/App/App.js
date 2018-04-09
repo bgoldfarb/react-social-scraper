@@ -24,12 +24,8 @@ class App extends Component {
     }
     handleChange = (event) => {
       this.setState(
-<<<<<<< HEAD
-        {queryParam: event.target.value})
-=======
         {queryParam: event.target.value,
         showTweets: false})
->>>>>>> 0ec5a6a2d5b4346a93b4bb28f7b4d7f745d16816
     }
 
     handleSubmit = (e) => {
@@ -41,11 +37,6 @@ class App extends Component {
         this.setState({showTweets:false})
        }
        this.setState({caseSensitive: false})
-<<<<<<< HEAD
-       twitterSearch(this.state.queryParam, this.state.queryData)
-       this.showResults()
-=======
->>>>>>> 0ec5a6a2d5b4346a93b4bb28f7b4d7f745d16816
     }
 
     handleCaseSensitiveSubmit = (e) => {
@@ -57,11 +48,6 @@ class App extends Component {
        this.setState({showTweets:false})
       }
       this.setState({caseSensitive: true})
-<<<<<<< HEAD
-      twitterSearch(this.state.queryParam, this.state.queryData)
-      this.showResults()
-=======
->>>>>>> 0ec5a6a2d5b4346a93b4bb28f7b4d7f745d16816
    }
 
     handleClear = (e) => {
@@ -127,12 +113,9 @@ class App extends Component {
         <button className = 'clear-button' onClick ={this.handleClear}>Clear</button>
         <button className = 'followers-button' onClick ={this.sortByFavorites}>Sort By Followers</button>
       </div>
-<<<<<<< HEAD
-=======
       <PopularLatestToggle onChange={this.updatePopularOrLatest} popularOrLatest={this.state.popularOrLatest} />
       <TwitterScraper tweet={this.state.queryParam} showTweets={this.state.showTweets} sortByFavorites = {this.state.sortByFavorites} queryData={this.addToQueryData} popularOrLatest={this.state.popularOrLatest} caseSensitive = {this.state.caseSensitive} />
          {this.showResults()}
->>>>>>> 0ec5a6a2d5b4346a93b4bb28f7b4d7f745d16816
     </div>
     );  
   }
