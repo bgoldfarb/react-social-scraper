@@ -43,10 +43,10 @@ filterGapTweets = (sortedObject, query) => {
 
 twitterSearch = (query, showTweets, queryData) => {
     if(this.userEntersValidQuery(showTweets,query)){
-    axios.get('http://localhost:3000')
+    axios.get(`http://localhost:3000/?id=${query}`)
         .then((response) => {
-            console.log(response.data)
-                        response.data.map((i, index) => {
+            console.log(response.data.statuses)
+                        response.data.statuses.map((i, index) => {
                         twitterObject.push(i)
                         sortedObject = this.sortByfavoritesOrFollowers(twitterObject)
                         })
