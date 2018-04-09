@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import keys from '../keys'
+import axios from 'axios'
 
 
 let client = ""
@@ -12,16 +12,7 @@ let newSortedObjectFilterOutBrands = []
 
 
 class TwitterScraper extends Component {
-   twitterSetup = () => {
-        let Twitter = require('twitter')
-         client = new Twitter({
-                consumer_key: keys.consumer_key,
-                consumer_secret: keys.consumer_secret,
-                access_token_key: keys.access_token_key,
-                access_token_secret: keys.access_token_secret
-            })
-    }
-
+    
 userEntersValidQuery = (showTweets, query) => showTweets && query.length > 0
 
 tweetsExistFromQuery = (error, tweets) => !error && tweets.statuses.length > 0
@@ -32,12 +23,12 @@ soryByFollowersDesending = (a,b) => -1*((a.user.followers_count > b.user.followe
 
 sortByfavoritesOrFollowers = (twitterObject) => !this.props.sortByFavorites ? (twitterObject.sort((a,b) => this.sortByFavoritesDescending(a,b))) : (twitterObject.sort((a,b) =>  this.soryByFollowersDesending(a,b)))
 
-sendTwitterData = (sortedObject, queryData, tweets) => sortedObject.map((i) => queryData(i.full_text,i.user.name,tweets.statuses.length, i.favorite_count, i.user.followers_count))
+sendTwitterData = (sortedObject, queryData, tweets) => sortedObject.map((i) => queryData(i.full_text,i.user.name, i.favorite_count, i.user.followers_count))
 
 returnCaseSensitiveTweets = (sortedObject, query) => {
     sortedCaseSensitiveObject = sortedObject
     let regex = new RegExp(query);
-    return sortedCaseSensitiveObject.filter((i) => (i.full_text.search(regex) >= 0 && returnFilteredOutBrands(i)))
+    return sortedCaseSensitiveObject.filter((i) => (i.full_text.search(regex) >= 0 && this.returnFilteredOutBrands(i)))
 }
 
 returnFilteredOutBrands = (i) => i.user.screen_name !== 'Gap' && i.user.screen_name !== 'BananaRepublic' && i.user.screen_name !== 'OldNavy' && !i.user.screen_name.includes('Athleta')
@@ -45,31 +36,35 @@ returnFilteredOutBrands = (i) => i.user.screen_name !== 'Gap' && i.user.screen_n
 
 filterGapTweets = (sortedObject, query) => {
     filteredOutGapObject = sortedObject
-    return filteredOutGapObject.filter((i) => returnFilteredOutBrands(i))
+    return filteredOutGapObject.filter((i) => this.returnFilteredOutBrands(i))
 }
 
 
 
 twitterSearch = (query, showTweets, queryData) => {
     if(this.userEntersValidQuery(showTweets,query)){
-        this.twitterSetup()
-        client.get('search/tweets', {q: query, count: 100,  lang: 'en', tweet_mode: 'extended',  result_type: this.props.popularOrLatest === 'popular' ? 'popular' : ""} ,(error, tweets, response) => {
-            if(this.tweetsExistFromQuery(error, tweets)){
-                tweets.statuses.map((i, index) => {
-                twitterObject.push(i)
-                sortedObject = sortByfavoritesOrFollowers(twitterObject, props)
-                })
-            newSortedObjectByCase = this.returnCaseSensitiveTweets(sortedObject, query)
-            newSortedObjectFilterOutBrands = this.filterGapTweets(sortedObject, query)
-            this.sendTwitterData(this.props.caseSensitive ? newSortedObjectByCase: newSortedObjectFilterOutBrands, queryData, tweets)
-            }
+    axios.get('http://localhost:3000')
+        .then((response) => {
+            console.log(response.data)
+                        response.data.map((i, index) => {
+                        twitterObject.push(i)
+                        sortedObject = this.sortByfavoritesOrFollowers(twitterObject)
+                        })
+                    newSortedObjectByCase = this.returnCaseSensitiveTweets(sortedObject, query)
+                    newSortedObjectFilterOutBrands = this.filterGapTweets(sortedObject, query)
+                    this.sendTwitterData(this.props.caseSensitive ? newSortedObjectByCase: newSortedObjectFilterOutBrands, queryData, response.data)
+                    
+                    sortedObject = [] 
+                    twitterObject = []
+            
         })
-
+        .catch( (error) => {
+            console.log(error);
+        });
     }
-    sortedObject = [] 
-    twitterObject = []
 }
- 
+
+
 
  render() {
     return (
@@ -78,8 +73,7 @@ twitterSearch = (query, showTweets, queryData) => {
         </div>
     );  
   }
-
-
 }
 
 export default TwitterScraper
+
