@@ -23,7 +23,7 @@ soryByFollowersDesending = (a,b) => -1*((a.user.followers_count > b.user.followe
 
 sortByfavoritesOrFollowers = (twitterObject) => !this.props.sortByFavorites ? (twitterObject.sort((a,b) => this.sortByFavoritesDescending(a,b))) : (twitterObject.sort((a,b) =>  this.soryByFollowersDesending(a,b)))
 
-sendTwitterData = (sortedObject, queryData, tweets) => sortedObject.map((i) => queryData(i.full_text,i.user.name, i.favorite_count, i.user.followers_count))
+sendTwitterData = (sortedObject, queryData, tweets) => sortedObject.map((i) => queryData(i.full_text, i.user.name, tweets.statuses.length, i.favorite_count, i.user.followers_count))
 
 returnCaseSensitiveTweets = (sortedObject, query) => {
     sortedCaseSensitiveObject = sortedObject
