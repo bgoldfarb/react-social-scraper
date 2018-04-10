@@ -59,7 +59,7 @@ twitterSearch = (query, showTweets, queryData,resultType) => {
         })
         .catch( (error) => {
             console.log(error);
-        }): console.log("Not showing tweets")
+        }): null
     
 }
 

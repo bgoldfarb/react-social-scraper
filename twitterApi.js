@@ -12,12 +12,12 @@ let client = new Twitter({
 let appRouter = (app) => {
     app.get("/", (req, res) => {
     let filteredObject = []
-    client.get('search/tweets', {q: req.query.id, count: 300,  lang: 'en', tweet_mode: 'extended'} ,(error, tweets, response) => {
+    client.get('search/tweets', {q: req.query.id, result_type: req.query.resultType, count: 300,  lang: 'en', tweet_mode: 'extended'} ,(error, tweets, response) => {
             res.set({
                 'Access-Control-Allow-Origin': 'http://localhost:3001'
               })
             res.status(200).send(tweets)
     })
-  })}
+  })} 
   
   module.exports = appRouter;   
