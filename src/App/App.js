@@ -93,10 +93,7 @@ class App extends Component {
       this.setState({sortByFavorites : (!this.state.sortByFavorites ? true : false)})
     }
 
-    highlightSearchParam = () => {
-      {console.log(this.state.queryData)}
-    }
- 
+    
 
   render() {
     return (
@@ -112,7 +109,7 @@ class App extends Component {
         <button className = 'submit-button-case' onClick ={this.handleCaseSensitiveSubmit}>Case Sensitive Submit</button>
         <button className = 'clear-button' onClick ={this.handleClear}>Clear</button>
         <button className = 'followers-button' onClick ={this.sortByFavorites}>Sort By Followers</button>
-      </div>
+      </div>  
       <PopularLatestToggle onChange={this.updatePopularOrLatest} popularOrLatest={this.state.popularOrLatest} />
       <TwitterScraper tweet={this.state.queryParam} showTweets={this.state.showTweets} sortByFavorites = {this.state.sortByFavorites} queryData={this.addToQueryData} popularOrLatest={this.state.popularOrLatest} caseSensitive = {this.state.caseSensitive} />
          {this.showResults()}
