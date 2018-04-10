@@ -41,9 +41,8 @@ filterGapTweets = (sortedObject, query) => {
 
 
 
-twitterSearch = (query, showTweets, queryData) => {
-    if(this.userEntersValidQuery(showTweets,query)){
-    axios.get(`http://localhost:3000/?id=${query}`)
+twitterSearch = (query, showTweets, queryData,resultType) => {
+    showTweets ? axios.get(`http://localhost:3000/?id=${query}&resultType=${resultType}`)
         .then((response) => {
             console.log(response.data.statuses)
                         response.data.statuses.map((i, index) => {
@@ -56,12 +55,12 @@ twitterSearch = (query, showTweets, queryData) => {
                     
                     sortedObject = [] 
                     twitterObject = []
-            
+            showTweets = false
         })
         .catch( (error) => {
             console.log(error);
-        });
-    }
+        }): console.log("Not showing tweets")
+    
 }
 
 
@@ -69,7 +68,7 @@ twitterSearch = (query, showTweets, queryData) => {
  render() {
     return (
         <div>
-         {this.twitterSearch(this.props.tweet, this.props.showTweets, this.props.queryData)}
+         {this.twitterSearch(this.props.tweet, this.props.showTweets, this.props.queryData, this.props.popularOrLatest)}
         </div>
     );  
   }
